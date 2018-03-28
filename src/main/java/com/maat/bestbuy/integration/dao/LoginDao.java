@@ -4,6 +4,7 @@ import com.maat.bestbuy.integration.exception.AuthorizationException;
 import com.maat.bestbuy.integration.exception.BadRequestException;
 import com.maat.bestbuy.integration.model.LoginResponse;
 import com.maat.bestbuy.integration.model.Payload;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,25 +39,27 @@ public class LoginDao {
         this.authenticationManager = authenticationManager;
     }
 
-    public LoginResponse login (Payload payload) {
-        LoginResponse loginResponse = null;
+    @HystrixCommand(groupKey = "loginCommand", commandKey = "loginCommand", threadPoolKey = "loginCommand")
+    public LoginResponse login(Payload payload) {
         LOGGER.info("loginDao {} -> login(): Initiated");
         Authentication authentication = getUserAuthentication(payload);
-        if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                loginResponse = getUserDetails(payload.getUserId());
+        try {
+            if (authentication != null && authentication.isAuthenticated()) {
+                LoginResponse loginResponse = getUserDetails(payload.getUserId());
                 loginResponse.setUserId(StringEscapeUtils.escapeJava(payload.getUserId()));
                 if (isAuthorized(loginResponse)) {
                     return loginResponse;
                 } else {
                     throw new AuthorizationException(AUTH_FAILED, new Object[]{});
                 }
-            } catch (BadRequestException | AuthenticationException e) {
-                LOGGER.error("Error getting user details from ldap: " + e.getMessage(), e);
-                throw new AuthorizationException(AUTH_FAILED, new Object[]{});
+            } else {
+                LOGGER.error("LDAP authentication error for user " + payload.getUserId() + " : authentication is empty");
+                throw new AuthorizationException(AUTH_FAILED, new Object[]{"LDAP authentication error for user " + payload.getUserId() + " : authentication is empty"});
             }
+        } catch (BadRequestException | AuthenticationException e) {
+            LOGGER.error("Error getting user details from ldap: " + e.getMessage(), e);
+            throw new AuthorizationException(AUTH_FAILED, new Object[]{});
         }
-        return loginResponse;
     }
 
     private Authentication getUserAuthentication(Payload userDetailsPayload) {
@@ -123,18 +126,23 @@ public class LoginDao {
     private List<String> getGroupSearchBase() {
         return groupSearchBase;
     }
+
     public void setGroupSearchBase(List<String> groupSearchBase) {
         this.groupSearchBase = groupSearchBase;
     }
+
     public String getGroupRoleAttribute() {
         return groupRoleAttribute;
     }
+
     public void setGroupRoleAttribute(String groupRoleAttribute) {
         this.groupRoleAttribute = groupRoleAttribute;
     }
+
     public MessageFormat getUserDnFormat() {
         return userDnFormat;
     }
+
     public void setUserDnFormat(MessageFormat userDnFormat) {
         this.userDnFormat = userDnFormat;
     }

@@ -3,6 +3,7 @@ package com.maat.bestbuy.integration.web.controller;
 import com.maat.bestbuy.integration.model.LoginResponse;
 import com.maat.bestbuy.integration.model.Payload;
 import com.maat.bestbuy.integration.service.LoginService;
+import com.maat.bestbuy.integration.utils.Constants;
 import com.maat.bestbuy.integration.utils.Encryption;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,21 +45,20 @@ public class LoginController {
             response.setHeader("x-auth-token", generateJWT(getEncrptedUT(o.getEmployeeNumber() + "^" + o.getEnterpriseRole() + "^" + o.getEmployeeStatus() + "^" + o.getEmail_id())));
             response.setHeader("Access-Control-Expose-Headers", "x-auth-token");
             deferredResult.setResult(o);
-        }, e -> deferredResult.setErrorResult(e));
+        }, deferredResult::setErrorResult);
         LOGGER.info("login {} : User: " + payload.getUserId() + " completed");
         return deferredResult;
     }
 
     private String getEncrptedUT (String ut) {
-        String encryptedUT= Encryption.encryptValue(ut);
-        return encryptedUT;
+        return Encryption.encryptValue(ut);
     }
 
     private String generateJWT(String token) {
         return Jwts.builder()
                 .setSubject(token)
                 .setExpiration(new Date(System.currentTimeMillis() + 1800000))
-                .signWith(SignatureAlgorithm.HS512, "i2ppN2OBxk")
+                .signWith(SignatureAlgorithm.HS512, Encryption.getProperty(Constants.APP_SEC_PSSWD, null))
                 .compact();
 
     }
