@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mt1-adminstrator-login
+  profiles:
+    active:
+      - dev
+  cloud:
+    config:
+      uri: https://usbb5cg7022ntz.na.bestbuy.com:60143

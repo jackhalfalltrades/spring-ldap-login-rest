@@ -1,0 +1,66 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RC2'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.maat.bestbuy.integration'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+ext {
+	springCloudVersion = 'Finchley.M7'
+}
+
+dependencies {
+
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web-services')
+	//compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	compile('org.springframework.cloud:spring-cloud-config-client')
+	compile('org.springframework:spring-context:5.0.4.RELEASE')
+	compile('org.springframework.ldap:spring-ldap-core:2.3.2.RELEASE')
+	compile('org.springframework.security:spring-security-ldap:5.0.2.RELEASE')
+	compile('org.springframework.security:spring-security-config:5.0.2.RELEASE')
+    compile('org.springframework.security:spring-security-web:5.0.2.RELEASE')
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+    compile('org.springframework:spring-tx:5.0.4.RELEASE')
+    compile('org.codehaus.groovy:groovy-all:2.4.13')
+    compile('cglib:cglib-nodep:3.2.6')
+    compile('io.springfox:springfox-swagger2:2.8.0')
+    compile('io.springfox:springfox-swagger-ui:2.8.0')
+    compile ('com.github.ulisesbocchio:jasypt-spring-boot-starter:1.18')
+    compile('org.jasypt:jasypt:1.9.2')
+    runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}

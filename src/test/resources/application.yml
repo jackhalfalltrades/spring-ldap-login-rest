@@ -1,0 +1,5 @@
+dao:
+  groupRoleAttribute: cn
+  userDnFormat: uid={0},ou=People,dc=bestbuy,dc=com
+  groupSearchBase:
+    - cn=WASAdministrators,ou=Groups
