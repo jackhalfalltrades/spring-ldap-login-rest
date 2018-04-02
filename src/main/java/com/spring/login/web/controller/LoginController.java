@@ -1,10 +1,10 @@
-package com.maat.bestbuy.integration.web.controller;
+package com.spring.login.web.controller;
 
-import com.maat.bestbuy.integration.model.LoginResponse;
-import com.maat.bestbuy.integration.model.Payload;
-import com.maat.bestbuy.integration.service.LoginService;
-import com.maat.bestbuy.integration.utils.Constants;
-import com.maat.bestbuy.integration.utils.Encryption;
+import com.spring.login.model.LoginResponse;
+import com.spring.login.model.Payload;
+import com.spring.login.service.LoginService;
+import com.spring.login.utils.Constants;
+import com.spring.login.utils.Encryption;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiOperation;
@@ -34,8 +34,9 @@ public class LoginController {
     }
 
     @ApiOperation("Authenticate Administrators")
-    @PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody @CrossOrigin
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public @ResponseBody
+    @CrossOrigin
     DeferredResult<LoginResponse> login(@RequestBody @Valid Payload payload, HttpServletResponse response, HttpServletRequest request) {
         LOGGER.debug("login {} : payload ->", payload);
         LOGGER.info("login {} : User: " + payload.getUserId() + " initiated");
@@ -50,7 +51,7 @@ public class LoginController {
         return deferredResult;
     }
 
-    private String getEncrptedUT (String ut) {
+    private String getEncrptedUT(String ut) {
         return Encryption.encryptValue(ut);
     }
 

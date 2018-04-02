@@ -1,6 +1,6 @@
-package com.maat.bestbuy.integration.configuration;
+package com.spring.login.configuration;
 
-import com.maat.bestbuy.integration.security.MaatAuthenticationEntryPoint;
+import com.spring.login.security.AuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +22,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebSecurity
 @Configuration
 @Component("securityConfiguration")
-@ComponentScan("com.maat.bestbuy.integration.administratorloginv1")
+@ComponentScan("com.spring.login")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements ApplicationContextAware {
 
     @Autowired
-    private MaatAuthenticationEntryPoint maatAuthenticationEntryPoint;
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,10 +35,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
                 .and()
                 .requestMatcher(CorsUtils::isPreFlightRequest)
                 .exceptionHandling()
-                .authenticationEntryPoint(maatAuthenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/login")
+                .antMatchers(HttpMethod.POST, "/login")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

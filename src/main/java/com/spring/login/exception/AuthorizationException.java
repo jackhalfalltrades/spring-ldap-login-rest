@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.exception;
+package com.spring.login.exception;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.Serializable;
 import java.util.Arrays;
+
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 public class AuthorizationException extends RuntimeException implements Serializable {
 

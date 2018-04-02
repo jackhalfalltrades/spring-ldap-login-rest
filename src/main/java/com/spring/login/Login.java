@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration;
+package com.spring.login;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.ImportResource;
 @EnableEncryptableProperties
 @SpringBootApplication
 @ImportResource("classpath:app-config.xml")
-public class AdministratorLogin {
+public class Login {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AdministratorLogin.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Login.class, args);
+    }
 }

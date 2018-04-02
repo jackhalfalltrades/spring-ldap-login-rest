@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.configuration;
+package com.spring.login.configuration;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class LdapConfiguration {
     }
 
     @Bean(name = "contextSource")
-    public DefaultSpringSecurityContextSource defaultSpringSecurityContextSource(){
+    public DefaultSpringSecurityContextSource defaultSpringSecurityContextSource() {
         DefaultSpringSecurityContextSource defaultSpringSecurityContextSource = new DefaultSpringSecurityContextSource(url);
         defaultSpringSecurityContextSource.setUserDn(userDn);
         defaultSpringSecurityContextSource.setPassword(password);
@@ -42,19 +42,19 @@ public class LdapConfiguration {
     }
 
     @Bean(name = "ldapTemplate")
-    public SpringSecurityLdapTemplate getSpringSecurityLdapTemplate(@Qualifier("contextSource")DefaultSpringSecurityContextSource defaultSpringSecurityContextSource) {
+    public SpringSecurityLdapTemplate getSpringSecurityLdapTemplate(@Qualifier("contextSource") DefaultSpringSecurityContextSource defaultSpringSecurityContextSource) {
         SpringSecurityLdapTemplate springSecurityLdapTemplate = new SpringSecurityLdapTemplate(defaultSpringSecurityContextSource);
         return springSecurityLdapTemplate;
     }
 
     @Bean(name = "ldapBindAuthenticator")
-    public BindAuthenticator getBindAuthenticator(@Qualifier("contextSource")DefaultSpringSecurityContextSource defaultSpringSecurityContextSource) {
+    public BindAuthenticator getBindAuthenticator(@Qualifier("contextSource") DefaultSpringSecurityContextSource defaultSpringSecurityContextSource) {
         BindAuthenticator bindAuthenticator = new BindAuthenticator(defaultSpringSecurityContextSource);
         bindAuthenticator.setUserDnPatterns(userDnPatterns);
         return bindAuthenticator;
     }
 
-    @Bean(name ="ldapAuthProvider")
+    @Bean(name = "ldapAuthProvider")
     public LdapAuthenticationProvider getLdapAuthenticationProvider(@Qualifier("ldapBindAuthenticator") BindAuthenticator bindAuthenticator) {
         LdapAuthenticationProvider ldapAuthenticationProvider = new LdapAuthenticationProvider(bindAuthenticator);
         return ldapAuthenticationProvider;

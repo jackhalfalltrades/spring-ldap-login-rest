@@ -1,8 +1,8 @@
-package com.maat.bestbuy.integration.service;
+package com.spring.login.service;
 
-import com.maat.bestbuy.integration.dao.LoginDao;
-import com.maat.bestbuy.integration.model.LoginResponse;
-import com.maat.bestbuy.integration.model.Payload;
+import com.spring.login.dao.LoginDao;
+import com.spring.login.model.LoginResponse;
+import com.spring.login.model.Payload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ public class LoginService {
     private LoginDao loginDao;
 
     @Autowired
-    public LoginService (LoginDao loginDao) {
+    public LoginService(LoginDao loginDao) {
         this.loginDao = loginDao;
     }
 
-    public Observable<LoginResponse> login (Payload payload) {
+    public Observable<LoginResponse> login(Payload payload) {
         return Observable.just(loginDao.login(payload));
     }
 }

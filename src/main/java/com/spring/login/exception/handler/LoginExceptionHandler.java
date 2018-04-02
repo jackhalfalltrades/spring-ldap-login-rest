@@ -1,7 +1,7 @@
-package com.maat.bestbuy.integration.exception.handler;
+package com.spring.login.exception.handler;
 
-import com.maat.bestbuy.integration.model.ErrorInfo;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import com.spring.login.model.ErrorInfo;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

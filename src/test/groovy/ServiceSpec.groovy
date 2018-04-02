@@ -1,7 +1,7 @@
-import com.maat.bestbuy.integration.dao.LoginDao
-import com.maat.bestbuy.integration.model.LoginResponse
-import com.maat.bestbuy.integration.model.Payload
-import com.maat.bestbuy.integration.service.LoginService
+import com.spring.login.dao.LoginDao
+import com.spring.login.model.LoginResponse
+import com.spring.login.model.Payload
+import com.spring.login.service.LoginService
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -40,6 +40,6 @@ class ServiceSpec extends Specification {
 
         then:
         response.toBlocking().single().getUserId() == expectedLoginResponse.getUserId()
-        1*loginDaoMock.login(_ as Payload) >> expectedLoginResponse
+        1 * loginDaoMock.login(_ as Payload) >> expectedLoginResponse
     }
 }

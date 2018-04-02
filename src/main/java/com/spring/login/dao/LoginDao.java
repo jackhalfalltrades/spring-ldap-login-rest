@@ -1,10 +1,10 @@
-package com.maat.bestbuy.integration.dao;
+package com.spring.login.dao;
 
-import com.maat.bestbuy.integration.exception.AuthorizationException;
-import com.maat.bestbuy.integration.exception.BadRequestException;
-import com.maat.bestbuy.integration.model.LoginResponse;
-import com.maat.bestbuy.integration.model.Payload;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.spring.login.exception.AuthorizationException;
+import com.spring.login.exception.BadRequestException;
+import com.spring.login.model.LoginResponse;
+import com.spring.login.model.Payload;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

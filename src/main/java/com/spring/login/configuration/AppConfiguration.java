@@ -1,7 +1,7 @@
-package com.maat.bestbuy.integration.configuration;
+package com.spring.login.configuration;
 
-import com.maat.bestbuy.integration.dao.LoginDao;
-import com.maat.bestbuy.integration.security.MaatAuthenticationEntryPoint;
+import com.spring.login.dao.LoginDao;
+import com.spring.login.security.AuthenticationEntryPoint;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import org.springframework.security.ldap.SpringSecurityLdapTemplate;
 import java.text.MessageFormat;
 import java.util.List;
 
-@ConfigurationProperties(prefix="dao")
+@ConfigurationProperties(prefix = "dao")
 @EnableConfigurationProperties
 @Configuration("appConfiguration")
 @Data
@@ -31,8 +31,8 @@ public class AppConfiguration {
     private List<String> groupSearchBase;
 
     @Bean("maatAuthenticationEntryPoint")
-    public MaatAuthenticationEntryPoint getMaatAuthenticationEntryPoint() {
-        return new MaatAuthenticationEntryPoint();
+    public AuthenticationEntryPoint getMaatAuthenticationEntryPoint() {
+        return new AuthenticationEntryPoint();
     }
 
     @Bean("loginDao")

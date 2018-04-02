@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.model;
+package com.spring.login.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

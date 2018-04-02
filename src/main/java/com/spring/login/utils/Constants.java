@@ -1,4 +1,4 @@
-package com.maat.bestbuy.integration.utils;
+package com.spring.login.utils;
 
 public class Constants {
     public static final String APP_SEC_PSSWD = "jasypt.encryptor.password";

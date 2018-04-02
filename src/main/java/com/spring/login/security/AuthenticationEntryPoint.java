@@ -1,14 +1,13 @@
-package com.maat.bestbuy.integration.security;
+package com.spring.login.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.maat.bestbuy.integration.model.ErrorInfo;
+import com.spring.login.model.ErrorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component("maatAuthenticationEntryPoint")
-public class MaatAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class AuthenticationEntryPoint implements org.springframework.security.web.AuthenticationEntryPoint {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MaatAuthenticationEntryPoint.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationEntryPoint.class);
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException)
